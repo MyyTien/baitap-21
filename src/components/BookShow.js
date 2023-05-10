@@ -2,16 +2,17 @@ import React, { useState, useContext } from "react";
 import BookEdit from "./BookEdit";
 import BooksContext from "../context/books";
 
-const BookShow = ({ book, onDelete, onEdit }) => {
+const BookShow = ({ book }) => {
+  const { updateBookById, deleteBookById } = useContext(BooksContext)
   const [isEdit, setIsEdit] = useState(false);
   const handleClickDelete = () => {
-    onDelete(book.id);
+    deleteBookById(book.id);
   };
   const handleClickEdit = () => {
     setIsEdit(!isEdit);
   };
   const editBook = (title) => {
-    onEdit(book.id, title);
+    updateBookById(book.id, title);
     setIsEdit(!isEdit);
   };
   let content = <h2>{book.title}</h2>;
@@ -29,7 +30,7 @@ const BookShow = ({ book, onDelete, onEdit }) => {
         </button>
       </div>
       <img alt="book" src={`https://picsum.photos/seed/${book.id}/200/300`} />
-     <div> {content}</div>
+      <div> {content}</div>
     </div>
   );
 };
